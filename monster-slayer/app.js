@@ -24,14 +24,7 @@ new Vue({
 				max: 32
 			}
 		},
-		logs: {
-			[9, 11],
-			[12, 7]
-		},
-		logs: [
-			{player: 9, enemy: 11},
-			{player: 12, enemy: 7}
-		]
+		logs: []
 	},
 	methods: {
 		startGame: function(){
@@ -41,6 +34,7 @@ new Vue({
 		},
 		giveup: function(){
 			this.startState = !this.startState;
+			this.logs = [];
 		},
 		generateRandom: function(damage){
 			max = damage.max;
@@ -48,17 +42,30 @@ new Vue({
 			return Math.floor(Math.random() * (max - min)) + min;
 		},
 		attack: function(){
-			this.monster.health -= this.generateRandom(this.action.attack);
-			this.healthLimit();
-			this.actionLog();
+			return this.generateRandom(this.action.attack);
 		},
 		specialAttack: function(){
-			this.monster.health -= this.generateRandom(this.action.specialAttack);
+			let damage = this.generateRandom(this.action.specialAttack);
+			this.monster.health -= damage;
 			this.healthLimit();
+			this.actionLog(damage);
 		},
 		heal: function(){
-			this.monster.health += this.generateRandom(this.action.heal);
+			let damage = this.generateRandom(this.action.heal);
+			this.monster.health += damage;
 			this.healthLimit();
+			this.actionLog(damage);
+		},
+		playerTurn: function(action){
+			if(action === 'attack'){
+				let damage = this.attack;
+				this.monster.health -= damage;
+				this.healthLimit();
+				this.actionLog(damage);
+			}
+		},
+		monsterTurn: function(){
+
 		},
 		healthLimit: function(){
 			if(this.monster.health >= this.monster.healthMax){
@@ -68,8 +75,8 @@ new Vue({
 				this.monster.health = 0;
 			}
 		},
-		actionLog: function(){
-			this.log.push('')
+		actionLog: function(damage){
+			this.logs.push(damage);
 		}
 	}
 });

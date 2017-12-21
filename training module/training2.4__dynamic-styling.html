@@ -1,0 +1,18 @@
+<script src="../vue.js"></script>
+
+<style type="text/css">
+	.demo{width: 100px; height: 100px; background-color: gray; display: inline-block; margin: 10px;}
+	.red{background-color: red;}
+	.green{background-color: green;}
+	.blue{background-color: blue;}
+</style>
+
+<div id="app">
+	<div class="demo" :style="{backgroundColor: color}"></div>
+	<div class="demo" :style="myStyle"></div>
+	<div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
+	<input type="text" v-model="color">
+	<input type="text" v-model="width">
+</div>
+
+<script type="text/javascript" src="training2.4__dynamic-styling-js.js"></script>
