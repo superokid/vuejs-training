@@ -25,8 +25,8 @@ new Vue({
 			}
 		},
 		logs: {
-			[9,11],
-			[12,7]
+			[9, 11],
+			[12, 7]
 		},
 		logs: [
 			{player: 9, enemy: 11},
@@ -41,8 +41,6 @@ new Vue({
 		},
 		giveup: function(){
 			this.startState = !this.startState;
-			this.player.health = 0;
-			this.monster.health = 0;
 		},
 		generateRandom: function(damage){
 			max = damage.max;
