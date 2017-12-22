@@ -37,39 +37,76 @@ new Vue({
 			this.logs = [];
 		},
 		generateRandom: function(damage){
-			max = damage.max;
-			min = damage.min;
+			let max = damage.max;
+			let min = damage.min;
 			return Math.floor(Math.random() * (max - min)) + min;
 		},
 		attack: function(){
 			return this.generateRandom(this.action.attack);
 		},
 		specialAttack: function(){
-			let damage = this.generateRandom(this.action.specialAttack);
-			this.monster.health -= damage;
-			this.healthLimit();
-			this.actionLog(damage);
+			return this.generateRandom(this.action.specialAttack);
 		},
 		heal: function(){
-			let damage = this.generateRandom(this.action.heal);
-			this.monster.health += damage;
+			return this.generateRandom(this.action.heal);
+		},
+		playerTurn: function(action){
+			let damage;
+			if(action === 'attack'){
+				damage = this.attack();
+				this.monster.health -= damage;
+			}
+			else if(action === 'specialAttack'){
+				damage = this.specialAttack();
+				this.monster.health -= damage;
+			}
+			else if(action === 'heal'){
+				damage = this.heal();
+				this.monster.health += damage;
+			}
+			this.healthLimit();
+			this.actionLog(damage);
+			this.monsterTurn();
+		},
+		monsterTurn: function(){
+			let action = this.monsterAction(this.generateRandom([1,3]));
+			let damage;
+			if(action === 'attack'){
+				damage = this.attack();
+				this.player.health -= damage;
+			}
+			else if(action === 'specialAttack'){
+				damage = this.specialAttack();
+				this.player.health -= damage;
+			}
+			else if(action === 'heal'){
+				damage = this.heal();
+				this.player.health += damage;
+			}
 			this.healthLimit();
 			this.actionLog(damage);
 		},
-		playerTurn: function(action){
-			if(action === 'attack'){
-				let damage = this.attack;
-				this.monster.health -= damage;
-				this.healthLimit();
-				this.actionLog(damage);
+		monsterAction: function(val){
+			let action;
+			console.log(val);
+			if(val === 1){
+				action = 'attack';
+			}else if(val === 2){
+				action = 'specialAttack';
+			}else if(val === 3){
+				action = 'heal';
 			}
-		},
-		monsterTurn: function(){
-
+			return action;
 		},
 		healthLimit: function(){
+			if(this.player.health >= this.player.healthMax){
+				this.player.health = this.player.healthMax;
+			}
 			if(this.monster.health >= this.monster.healthMax){
 				this.monster.health = this.monster.healthMax;
+			}
+			if(this.player.health <= 0){
+				this.player.health = 0;
 			}
 			if(this.monster.health <= 0){
 				this.monster.health = 0;

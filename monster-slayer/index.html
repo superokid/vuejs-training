@@ -43,8 +43,8 @@
     <section class="row controls" v-else>
         <div class="small-12 columns">
             <button id="attack" @click="playerTurn('attack')">ATTACK</button>
-            <button id="special-attack" @click="playerTurn.specialAttack">SPECIAL ATTACK</button>
-            <button id="heal" @click="playerTurn.heal">HEAL</button>
+            <button id="special-attack" @click="playerTurn('specialAttack')">SPECIAL ATTACK</button>
+            <button id="heal" @click="playerTurn('heal')">HEAL</button>
             <button id="give-up" @click="giveup">GIVE UP</button>
         </div>
     </section>
