@@ -1,6 +1,9 @@
 __MACOSX/
 exercise/
+exercise7/
 video/
 comparison/
+node_modules/
+vue-cli/node_modules/
 *.DS_Store
 monster-slayer/.eslintrc.json
