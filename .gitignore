@@ -1,6 +1,8 @@
 __MACOSX/
 exercise/
 video/
+tmp1/
+tmp2/
 comparison/
 node_modules/
 vue-cli/node_modules/
