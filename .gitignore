@@ -7,4 +7,5 @@ comparison/
 node_modules/
 vue-cli/node_modules/
 *.DS_Store
+*debug.txt
 monster-slayer/.eslintrc.json
