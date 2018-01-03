@@ -13,14 +13,14 @@
 							type="number"
 							class="form-control"
 							placeholder="Quantity"
-							v-model="quantity"
+							v-model.number="quantity"
 							>
 				</div>
 				<div class="pull-right">
 					<button 
 							class="btn btn-success"
 							@click="buyStock"
-							>Buy</button>
+							:disabled="quantity <= 0 || !Number.isInteger(quantity)">Buy</button>
 				</div>
 			</div>
 		</div>
@@ -42,6 +42,8 @@
 					stockPrice: this.stock.price,
 					quantity: this.quantity
 				};
+				console.log(order);
+				this.quantity = 0;
 			}
 		}
 	}
